@@ -1,16 +1,18 @@
 /*
 Purpose:
-Set up the Express server for Assignment 1
-Configure middleware, connect to MongoDB, and define the server port
+Set up the Express server, middleware,
+MongoDB connection and API routes.
 */
 
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
 
-const connectDB = require('./config/db');
+require("dotenv").config();
+
+const connectDB = require("./config/db");
+const UserRoutes = require("./routes/UserRoutes");
 
 const app = express();
 
@@ -18,12 +20,15 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
-// Set server port
+// User API routes
+app.use("/api/v1/user", UserRoutes);
+
+// Server port
 const PORT = process.env.PORT || 8081;
 
-// Connect to MongoDB and start the server
+// Start server
 const startServer = async () => {
     await connectDB();
 
