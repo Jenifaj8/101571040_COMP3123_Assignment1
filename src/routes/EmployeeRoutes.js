@@ -12,13 +12,19 @@ const verifyToken = require("../middleware/AuthMiddleware");
 // Require authentication for all employee routes
 router.use(verifyToken);
 
-// POST /api/v1/emp/employees
+// CREATE EMPLOYEE
 router.post("/employees", EmployeeController.createEmployee);
 
-// GET /api/v1/emp/employees
+// GET ALL EMPLOYEES
 router.get("/employees", EmployeeController.getAllEmployees);
 
-// GET /api/v1/emp/employees/:id
+// GET EMPLOYEE BY ID
 router.get("/employees/:id", EmployeeController.getEmployeeById);
+
+// UPDATE EMPLOYEE
+router.put("/employees/:id", EmployeeController.updateEmployee);
+
+// DELETE EMPLOYEE
+router.delete("/employees/:id", EmployeeController.deleteEmployee);
 
 module.exports = router;

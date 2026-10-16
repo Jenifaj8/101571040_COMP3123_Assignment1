@@ -160,9 +160,129 @@ const getEmployeeById = async (request, response) => {
 };
 
 
+// UPDATE EMPLOYEE
+const updateEmployee = async (request, response) => {
+    try {
+        const employeeId = request.params.id;
+
+        // Validate MongoDB ObjectId
+        if (!mongoose.isValidObjectId(employeeId)) {
+            return response.status(400).json({
+                message: "Invalid employee ID"
+            });
+        }
+
+        // Only allow specific fields to be updated
+        const allowedFields = [
+            "first_name",
+            "last_name",
+            "email",
+            "position",
+            "salary",
+            "date_of_joining",
+            "department"
+        ];
+
+        const updates = {};
+
+        for (const field of allowedFields) {
+            if (request.body[field] !== undefined) {
+                updates[field] = request.body[field];
+            }
+        }
+
+        if (Object.keys(updates).length === 0) {
+            return response.status(400).json({
+                message: "No valid employee fields provided"
+            });
+        }
+
+        // Update employee belonging to authenticated user
+        const employee = await EmployeeModel.findOneAndUpdate(
+            {
+                _id: employeeId,
+                user: request.user.id
+            },
+            { $set: updates },
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        if (!employee) {
+            return response.status(404).json({
+                message: "Employee not found"
+            });
+        }
+
+        return response.status(200).json({
+            message: "Employee updated successfully",
+            employee: employee
+        });
+
+    } catch (error) {
+        if (
+            error.name === "ValidationError" ||
+            error.name === "CastError"
+        ) {
+            return response.status(400).json({
+                message: "Invalid employee information"
+            });
+        }
+
+        console.error("Update employee error:", error.message);
+
+        return response.status(500).json({
+            message: "An error occurred while updating employee"
+        });
+    }
+};
+
+
+// DELETE EMPLOYEE
+const deleteEmployee = async (request, response) => {
+    try {
+        const employeeId = request.params.id;
+
+        // Validate MongoDB ObjectId
+        if (!mongoose.isValidObjectId(employeeId)) {
+            return response.status(400).json({
+                message: "Invalid employee ID"
+            });
+        }
+
+        // Delete employee belonging to authenticated user
+        const employee = await EmployeeModel.findOneAndDelete({
+            _id: employeeId,
+            user: request.user.id
+        });
+
+        if (!employee) {
+            return response.status(404).json({
+                message: "Employee not found"
+            });
+        }
+
+        return response.status(200).json({
+            message: "Employee deleted successfully"
+        });
+
+    } catch (error) {
+        console.error("Delete employee error:", error.message);
+
+        return response.status(500).json({
+            message: "An error occurred while deleting employee"
+        });
+    }
+};
+
+
 // Export controller functions
 module.exports = {
     createEmployee,
     getAllEmployees,
-    getEmployeeById
+    getEmployeeById,
+    updateEmployee,
+    deleteEmployee
 };
