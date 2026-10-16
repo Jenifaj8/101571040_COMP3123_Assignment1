@@ -3,6 +3,7 @@ Purpose:
 Handle employee management operations.
 */
 
+const mongoose = require("mongoose");
 const EmployeeModel = require("../models/EmployeeModel");
 
 // CREATE EMPLOYEE
@@ -97,4 +98,71 @@ const createEmployee = async (request, response) => {
     }
 };
 
-module.exports = { createEmployee };
+
+// GET ALL EMPLOYEES
+const getAllEmployees = async (request, response) => {
+    try {
+        const employees = await EmployeeModel.find({
+            user: request.user.id
+        });
+
+        return response.status(200).json({
+            message: "Employees retrieved successfully",
+            employees: employees
+        });
+
+    } catch (error) {
+        console.error("Get employees error:", error.message);
+
+        return response.status(500).json({
+            message: "An error occurred while retrieving employees"
+        });
+    }
+};
+
+
+// GET EMPLOYEE BY ID
+const getEmployeeById = async (request, response) => {
+    try {
+        const employeeId = request.params.id;
+
+        // Validate MongoDB ObjectId
+        if (!mongoose.isValidObjectId(employeeId)) {
+            return response.status(400).json({
+                message: "Invalid employee ID"
+            });
+        }
+
+        // Find employee belonging to authenticated user
+        const employee = await EmployeeModel.findOne({
+            _id: employeeId,
+            user: request.user.id
+        });
+
+        if (!employee) {
+            return response.status(404).json({
+                message: "Employee not found"
+            });
+        }
+
+        return response.status(200).json({
+            message: "Employee retrieved successfully",
+            employee: employee
+        });
+
+    } catch (error) {
+        console.error("Get employee error:", error.message);
+
+        return response.status(500).json({
+            message: "An error occurred while retrieving employee"
+        });
+    }
+};
+
+
+// Export controller functions
+module.exports = {
+    createEmployee,
+    getAllEmployees,
+    getEmployeeById
+};
