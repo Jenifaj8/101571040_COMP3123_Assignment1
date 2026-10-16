@@ -13,6 +13,7 @@ require("dotenv").config();
 
 const connectDB = require("./config/db");
 const UserRoutes = require("./routes/UserRoutes");
+const EmployeeRoutes = require("./routes/EmployeeRoutes");
 
 const app = express();
 
@@ -22,8 +23,9 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 
-// User API routes
+// API routes
 app.use("/api/v1/user", UserRoutes);
+app.use("/api/v1/emp", EmployeeRoutes);
 
 // Server port
 const PORT = process.env.PORT || 8081;
