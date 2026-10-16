@@ -1,15 +1,12 @@
-
 # COMP3123 Assignment 1
 
 **Student ID:** 101571040
 
 ## Project Description
 
-A RESTful Employee Management API developed using Node.js,
-Express.js, MongoDB Atlas, and Mongoose.
+A RESTful Employee Management API developed using Node.js, Express.js, MongoDB Atlas, and Mongoose.
 
-The application supports user authentication and employee
-management using JSON Web Tokens (JWT).
+The application supports user authentication and employee management using JSON Web Tokens (JWT).
 
 ## Technologies Used
 
@@ -47,14 +44,13 @@ management using JSON Web Tokens (JWT).
 2. Open the project folder.
 3. Install dependencies:
 
-   npm install
+   `npm install`
 
 4. Copy `.env.example` to `.env`.
-5. Update `.env` with your MongoDB Atlas connection string
-   and JWT secret.
+5. Update `.env` with your MongoDB Atlas connection string and JWT secret.
 6. Start the server:
 
-   node src/server.js
+   `node src/server.js`
 
 The application runs on:
 
@@ -62,11 +58,11 @@ http://localhost:8081
 
 ## Environment Variables
 
+```env
 PORT=8081
-
 MONGODB_URI=your_mongodb_connection_string
-
 JWT_SECRET=your_secure_jwt_secret
+```
 
 ## API Endpoints
 
@@ -92,7 +88,7 @@ Employee endpoints require JWT authentication.
 
 Authorization header:
 
-Bearer YOUR_JWT_TOKEN
+`Bearer YOUR_JWT_TOKEN`
 
 ## Health Check
 
@@ -112,7 +108,7 @@ Returns a JSON response indicating that the server is running.
 
 HTTP requests are recorded in:
 
-logs/access.log
+`logs/access.log`
 
 The logs folder is excluded from Git.
 
@@ -133,9 +129,13 @@ Tests include:
 - Employee ownership protection
 - Health-check endpoint
 - Invalid routes
+- Rate limiting (429 Too Many Requests)
+- Helmet security response headers
 
 ## Author
 
 Jenifa Joseph
+
 Student ID: 101571040
+
 George Brown Polytechnic
