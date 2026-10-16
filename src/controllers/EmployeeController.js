@@ -243,7 +243,7 @@ const updateEmployee = async (request, response) => {
 // DELETE EMPLOYEE
 const deleteEmployee = async (request, response) => {
     try {
-        const employeeId = request.params.id;
+        const employeeId = request.query.eid;
 
         // Validate MongoDB ObjectId
         if (!mongoose.isValidObjectId(employeeId)) {
@@ -252,7 +252,7 @@ const deleteEmployee = async (request, response) => {
             });
         }
 
-        // Delete employee belonging to authenticated user
+        // Delete only an employee owned by the logged-in user
         const employee = await EmployeeModel.findOneAndDelete({
             _id: employeeId,
             user: request.user.id
@@ -264,9 +264,8 @@ const deleteEmployee = async (request, response) => {
             });
         }
 
-        return response.status(200).json({
-            message: "Employee deleted successfully"
-        });
+        // Successful deletion - no response body
+        return response.status(204).send();
 
     } catch (error) {
         console.error("Delete employee error:", error.message);
