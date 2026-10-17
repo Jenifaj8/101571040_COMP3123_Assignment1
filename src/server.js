@@ -59,7 +59,7 @@ app.use(errorHandler);
 // Server port
 const PORT = process.env.PORT || 8081;
 
-// Start server
+// Start server locally
 const startServer = async () => {
     await connectDB();
 
@@ -68,4 +68,15 @@ const startServer = async () => {
     });
 };
 
-startServer();
+// Run the local server only when not on Vercel
+if (!process.env.VERCEL) {
+    startServer();
+}
+
+// Connect to MongoDB when deployed on Vercel
+if (process.env.VERCEL) {
+    connectDB();
+}
+
+// Export Express app for Vercel
+module.exports = app;
