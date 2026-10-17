@@ -22,6 +22,11 @@ const errorHandler = require("./middleware/ErrorMiddleware");
 
 const app = express();
 
+// Trust Vercel's reverse proxy
+if (process.env.VERCEL) {
+    app.set("trust proxy", 1);
+}
+
 // Middleware
 app.use(express.json());
 app.use(cors());
