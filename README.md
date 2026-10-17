@@ -1,6 +1,5 @@
-# COMP3123 Assignment 1
 
-**Student ID:** 101571040
+# COMP3123 Assignment 1
 
 ## Project Description
 
@@ -21,6 +20,7 @@ The application supports user authentication and employee management using JSON 
 - Helmet
 - CORS
 - Postman
+- Vercel
 
 ## Features
 
@@ -37,6 +37,7 @@ The application supports user authentication and employee management using JSON 
 - Request logging
 - Centralized error handling
 - Health-check endpoint
+- Vercel deployment
 
 ## Installation
 
@@ -52,7 +53,7 @@ The application supports user authentication and employee management using JSON 
 
    `node src/server.js`
 
-The application runs on:
+The application runs locally on:
 
 http://localhost:8081
 
@@ -63,6 +64,8 @@ PORT=8081
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_secure_jwt_secret
 ```
+
+For Vercel deployment, configure `MONGODB_URI` and `JWT_SECRET` in the Vercel Environment Variables settings.
 
 ## API Endpoints
 
@@ -106,11 +109,13 @@ Returns a JSON response indicating that the server is running.
 
 ## Logging
 
-HTTP requests are recorded in:
+HTTP requests are recorded locally in:
 
 `logs/access.log`
 
 The logs folder is excluded from Git.
+
+When deployed on Vercel, HTTP requests are logged to the Vercel deployment logs instead of a local file.
 
 ## Testing
 
@@ -131,6 +136,28 @@ Tests include:
 - Invalid routes
 - Rate limiting (429 Too Many Requests)
 - Helmet security response headers
+
+The exported Postman collection is included in:
+
+`postman_collection.json`
+
+## Vercel Deployment
+
+The COMP3123 Assignment 1 REST API is deployed on Vercel and uses MongoDB Atlas for database storage.
+
+**Live API:**
+
+https://101571040-comp-3123-assignment1.vercel.app
+
+### Verified Endpoints
+
+The following endpoints were successfully tested on Vercel using Postman:
+
+- `GET /health` — Health check (200 OK)
+- `POST /api/v1/user/login` — User login (200 OK)
+- `GET /api/v1/emp/employees` — Retrieve employees with JWT authentication (200 OK)
+
+The deployed API successfully connects to MongoDB Atlas and supports JWT authentication and employee retrieval.
 
 ## Author
 
