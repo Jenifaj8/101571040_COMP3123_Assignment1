@@ -499,6 +499,119 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Delete Employee – First User Accessing Second User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0so3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/emp/employees?eid=6ad2e036457ee1aa73f76770",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "emp",
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "eid",
+                  "value": "6ad2e036457ee1aa73f76770"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Employee – First User Accessing Second User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0so3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"position\": \"Manager\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/emp/employees/6ad2e036457ee1aa73f76770",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "emp",
+                "employees",
+                "6ad2e036457ee1aa73f76770"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Employee by ID - Success",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0so3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/emp/employees/6ad2e036457ee1aa73f76770",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "emp",
+                "employees",
+                "6ad2e036457ee1aa73f76770"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -608,6 +721,10 @@
     {
       "key": "jwt_token_user2",
       "value": ""
+    },
+    {
+      "key": "json_web_token_0so3",
+      "secret": true
     }
   ]
 }
