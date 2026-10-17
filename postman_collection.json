@@ -550,6 +550,54 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Vercel Deployment",
+      "item": [
+        {
+          "name": "User Login - Success",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"testuser1@example.com\",\r\n  \"password\": \"TestPass123!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://101571040-comp-3123-assignment1.vercel.app/api/v1/user/login",
+              "protocol": "https",
+              "host": [
+                "101571040-comp-3123-assignment1",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [
